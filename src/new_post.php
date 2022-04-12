@@ -16,15 +16,16 @@ if(@$_REQUEST['botao'] == "Add") {
     @$descricaoAnuncio = $_POST["descricaoAnuncio"];
     @$categoriaAnuncio = $_POST["categoriaAnuncio"];
 
-    $sql = "INSERT INTO anuncios (isActive, titulo, descricao, categoria) VALUES (0, '$tituloAnuncio', '$descricaoAnuncio', categoriaAnuncio)";
+    $sql = "INSERT INTO anuncios (isActive, titulo, descricao, categoria) VALUES (0, '$tituloAnuncio', '$descricaoAnuncio', $categoriaAnuncio)";
 
-    //TESTAR E IMPLEMENTAR VALUES DA DATA E USUARIO QUE CADASTROU
+    //TESTADO E FUNCIONANDO
 
     if (mysqli_query($con, $sql)) {
         echo "Anúncio adicionado com sucesso.";
         header("Refresh:3");
     } else {
         echo "Erro ao tentar adicionar anúncio.";
+		echo mysqli_error($con);
         header("Refresh:7");
     }
 }

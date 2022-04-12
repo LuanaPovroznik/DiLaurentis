@@ -11,14 +11,12 @@
 <?php
     include 'config.php';
 
-    // TESTAR - INSERIR TITULO NAS CATEGORIAS (?)
+    // TESTADO E OK
     if(@$_REQUEST['botao'] == "Add") {
         @$tituloCategoria = $_POST["tituloCategoria"];
         @$descricaoCategoria = $_POST["descricaoCategoria"];
 
         $sql = "INSERT INTO categoria (titulo, descricao) VALUES ('$tituloCategoria', '$descricaoCategoria')";
-
-        //TESTAR E IMPLEMENTAR VALUES DA DATA E USUARIO QUE CADASTROU
 
         if (mysqli_query($con, $sql)) {
             echo "Categoria adicionada com sucesso.";

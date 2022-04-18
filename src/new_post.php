@@ -58,7 +58,7 @@ if(@$_REQUEST['botao'] == "Add") {
             <input type="number" name="precoAnuncio" id="precoAnuncio"><br><br>
             <label for="categoriaAnuncio"><span>Categoria:</span></label><br><br>
             <?php
-            $sqlGet = "SELECT titulo FROM categoria";
+            $sqlGet = "SELECT titulo FROM categoria ORDER BY titulo ASC";
             $resultGet = mysqli_query($con, $sqlGet);
             echo '<select name="categoria" id="categoriaAnuncio">';
             while($row = mysqli_fetch_array($resultGet)){

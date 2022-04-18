@@ -1,4 +1,8 @@
 <!doctype html>
+<?php 
+    include 'config.php';
+    include 'verification.php';
+?>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -12,21 +16,57 @@
 <ul>
     <li><a href="index.php">Página Inicial</a></li>
     <li style="float: right"><a href="logout.php">Logout</a></li>
+    <li style="float: right; padding-top: 12px">
+    <input type="text" id="myFilter" class="form-control" onkeyup="myFunctionCateg()" placeholder="Procure pela categoria">
+    <input type="text" id="myFilterPrec" class="form-control" onkeyup="myFunctionPrec()" placeholder="Procure por preço">
+    </li>
 </ul>
 <?php
-include 'config.php';
-include 'verification.php';
     @$userLogin = $_SESSION['login'];
     @$userId = $_SESSION['id'];
     if(!isset($_SESSION['login'])){
         echo "<script>top.location.href='posts_page_logged_out.php';</script>";
     }
 
+    echo "<script>
+            function myFunctionCateg() {
+              var input, filter, cards, cardContainer, title, i;
+              input = document.getElementById(\"myFilter\");
+              filter = input.value.toUpperCase();
+              cardContainer = document.getElementById(\"myProducts\");
+              cards = cardContainer.getElementsByClassName(\"card\");
+              for (i = 0; i < cards.length; i++) {
+                title = cards[i].querySelector(\".cardCategory\");
+                if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                  cards[i].style.display = \"\";
+                } else {
+                  cards[i].style.display = \"none\";
+                }
+              }
+            }
+
+            function myFunctionPrec() {
+              var input, filter, cards, cardContainer, title, i;
+              input = document.getElementById(\"myFilterPrec\");
+              filter = input.value.toUpperCase();
+              cardContainer = document.getElementById(\"myProducts\");
+              cards = cardContainer.getElementsByClassName(\"card\");
+              for (i = 0; i < cards.length; i++) {
+                title = cards[i].querySelector(\".cardPrice\");
+                if (title.innerText.includes(filter)) {
+                  cards[i].style.display = \"\";
+                } else {
+                  cards[i].style.display = \"none\";
+                }
+              }
+            }
+        </script>";
+
     $sql = "SELECT * FROM anuncios";
     $result = mysqli_query($con, $sql);
 
     if($result != null){
-        echo "<div class=\"row\">";
+        echo "<div class=\"row\" id=\"myProducts\">";
             while($row = mysqli_fetch_array($result)){
                 if ($row['isActive'] == 1){
                     echo "<form action=\"\" method=\"POST\">";
@@ -46,8 +86,8 @@ include 'verification.php';
                         @$categoryTitle = @$resultCategoryTitle['titulo'];
                     }
 
-                    echo "<p> <span>Categoria do serviço:</span> ".$categoryTitle."</p>";
-                    echo "<p> <span>Preço por hora: R$</span> ".$row['preco']."</p>";
+                    echo "<p class=\"cardCategory\"> <span>Categoria do serviço:</span> ".$categoryTitle."</p>";
+                    echo "<p class=\"cardPrice\"> <span>Preço por hora: R$</span> ".$row['preco']."</p>";
 
                     // BOTÕES DEVEM ESTAR DISPONÍVEIS APENAS PARA ADMINS
                     @$getUserAdmin = mysqli_query($con, "SELECT * FROM user WHERE id = $userId");
@@ -100,6 +140,10 @@ include 'verification.php';
             echo "Erro ao inativar anúncio.";
             header("Refresh: 3");
         }
+    }
+     if(@$_REQUEST['botao'] == "gerenciar anúncio"){
+        @$postToUpdate = $_POST["postId"];
+      echo "<script>top.location.href=\"update_post.php?id=$postToUpdate\"</script>";
     }
 ?>
 </body>

@@ -1,8 +1,8 @@
 <html>
 
 <head>
-    <title>DiLaurentis - Login</title>
-    <link href="../css/style.css" rel="stylesheet">
+    <title>Login</title>
+    <link href="../css/login_style.css" rel="stylesheet">
 </head>
 
 <?php
@@ -38,14 +38,16 @@ if (@$_REQUEST['button']=="Login")
 ?>
 
 <body>
+<h2 style="text-align: center">di<span>laurentis</span></h2>
     <div class="container">
-        <h1>Welcome Back!</h1>
-        <form class="user" action=# method=post>
-            <input type="text" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="login">
-            <input type="password" id="password" placeholder="Password" name="password">                      
-            <input type="submit" name="button" value="Login">                                               
-        </form>                       
-        <a href="register.php">Create an Account!</a>                            
+        <h1>Seja <span>bem vindo</span></h1>
+        <a class="user" action=# method=post>
+            <input type="text" aria-describedby="emailHelp" placeholder="Enter username" name="login"><br><br>
+            <input type="password" id="password" placeholder="Password" name="password"> <br><br>
+            <a href="register.php"><button type="button" class="button" style="float: left">Crie sua conta</button></a>
+            <input type="submit" name="button" value="Login" class="button" style="float: right"><br>
+        </form>
+        <a href="posts_page_logged_out.php"><button type="button" class="button" style="float: left; width: 100%">Visualizar anúncios</button></a>
     </div>
 </body>
 </html>

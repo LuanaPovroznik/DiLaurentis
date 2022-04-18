@@ -1,3 +1,6 @@
+<?php
+    require('verification.php');
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -5,7 +8,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>New Post</title>
+    <link rel="stylesheet" href="../css/new_post_style.css">
+    <title>Novo anúncio</title>
 </head>
 
 <?php
@@ -14,11 +18,17 @@ include 'config.php';
 if(@$_REQUEST['botao'] == "Add") {
     @$tituloAnuncio = $_POST["tituloAnuncio"];
     @$descricaoAnuncio = $_POST["descricaoAnuncio"];
-    @$categoriaAnuncio = $_POST["categoriaAnuncio"];
+    @$categoriaAnuncio = $_POST["categoria"];
+    @$precoAnuncio = $_POST["precoAnuncio"];
+    @$userId = $_SESSION['id'];
 
-    $sql = "INSERT INTO anuncios (isActive, titulo, descricao, categoria) VALUES (0, '$tituloAnuncio', '$descricaoAnuncio', $categoriaAnuncio)";
+    @$getCategoryId = mysqli_query($con, "SELECT id FROM categoria WHERE titulo = '".@$categoriaAnuncio."'");
+    while(@$resultCategory = mysqli_fetch_array($getCategoryId)){
+        @$categoryId = @$resultCategory['id'];
+    }
 
-    //TESTADO E FUNCIONANDO
+    $sql = "INSERT INTO anuncios (isActive, titulo, descricao, categoria, usuario, preco) VALUES (1, '$tituloAnuncio', '$descricaoAnuncio', $categoryId, $userId, $precoAnuncio)";
+
 
     if (mysqli_query($con, $sql)) {
         echo "Anúncio adicionado com sucesso.";
@@ -32,15 +42,33 @@ if(@$_REQUEST['botao'] == "Add") {
 ?>
 
 <body>
-    <form action="" method="POST">
-        <p> Cadastrar novo anúncio </p>
-        <label for="tituloAnuncio">Título:</label><br>
-        <input type="text" name="tituloAnuncio" id="inputTitulo" maxlength="60"><br>
-        <label for="descricaoAnuncio">Descrição:</label><br>
-        <input type="text" name="descricaoAnuncio" id="inputDescricao"><br>
-        <label for="categoriaAnuncio">Categoria:</label><br>
-        <input type="number" name="categoriaAnuncio" id="inputCategoria"><br>
-        <input type="submit" name="botao" value="Add"><br>
-    </form>
+<ul>
+    <li><a href="index.php">Página Inicial</a></li>
+    <li style="float: right"><a href="logout.php">Logout</a></li>
+</ul>
+<h2 style="text-align: center">di<span>laurentis</span></h2>
+    <div class="container">
+        <form action="" method="POST">
+            <h3> Cadastrar <span>novo anúncio</span> </h3>
+            <label for="tituloAnuncio"><span>Título:</span></label><br>
+            <input type="text" name="tituloAnuncio" id="inputTitulo" maxlength="60"><br><br>
+            <label for="descricaoAnuncio"><span>Descrição:</span></label><br>
+            <textarea name="descricaoAnuncio" id="inputDescricao"></textarea><br><br>
+            <label for="precoAnuncio"><span>Preço por hora:</span></label><br>
+            <input type="number" name="precoAnuncio" id="precoAnuncio"><br><br>
+            <label for="categoriaAnuncio"><span>Categoria:</span></label><br><br>
+            <?php
+            $sqlGet = "SELECT titulo FROM categoria";
+            $resultGet = mysqli_query($con, $sqlGet);
+            echo '<select name="categoria" id="categoriaAnuncio">';
+            while($row = mysqli_fetch_array($resultGet)){
+                echo "<option value='{$row['titulo']}'>" . $row['titulo'] . "</option>";
+            }
+            echo '</select';
+            ?>
+            <br>
+            <input type="submit" name="botao" value="Add" class="button" style="float: right"><br>
+        </form>
+    </div>
 </body>
 </html>

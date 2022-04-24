@@ -100,7 +100,7 @@
         </script>
     <input type="submit" value="Gravar" id="buttonGravar" name="button" class="button" style="float: right">
         <a href="login.php">
-            <button type="button" class="button" style="float: right">Já tenho uma conta</button>
+            <button type="button" class="button" style="float: right">Página Inicial</button>
         </a>
     <input type="submit" value="Excluir" name="botao">
     <input type="reset" value="Novo" name="novo">

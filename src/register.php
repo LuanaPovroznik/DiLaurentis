@@ -1,6 +1,7 @@
+<?php include "verification.php"; ?>
 <html>
 <head>
-    <title>DiLaurentis - Register</title>
+    <title>Registrar usuário</title>
     <?php include ('config.php');  ?>
     <link href="../css/register_style.css" rel="stylesheet">
 </head>
@@ -58,23 +59,7 @@
 <div class="container">
     <h2>Cadastro <span>de Usuarios</span></h2>
     <form action="register.php" method="post" name="user">
-        <input type="text" placeholder="Username" onfocusout="checkUser()" name="login" id= "login" value="<?php echo @$_POST['login']; ?>" required>
-        <script>
-            function checkUser() {
-                fetch("http://localhost/dilaurentis/src/check_user.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                    },
-                    body: `login=${document.getElementById("login").value}`,
-                }).then((response) => response.text())
-                    .then((res) => {
-                        document.getElementById("result").innerHTML = res;
-                        letRegister();
-                    });
-            }
-        </script>
-        <p id="result" style="color: lightcoral; font-style: italic; font-size: small"></p>
+        <input type="text" placeholder="Username" name="login" id= "login" value="<?php echo @$_POST['login']; ?>" required>
         <input type="text" placeholder="Nome" name="first_name" value="<?php echo @$_POST['first_name']; ?>" required>
         <input type="text" placeholder="Sobrenome" name="last_name" value="<?php echo @$_POST['last_name']; ?>" required>
         <input type="password" id="password" name="password" value="<?php echo @$_POST['password']; ?>" placeholder="Senha" required>
@@ -86,18 +71,6 @@
                 <input type="radio" name="isAdm" value="USER" <?php echo (@$_POST['isAdm'] == "1" ? " checked" : "" );?> > USER
             </div>
         </div><br>
-        <script>
-            function letRegister(){
-                userAvaiable = document.getElementById("result").innerHTML.valueOf();
-                if(userAvaiable == "Esse login já existe em nosso sistema."){
-                    document.getElementById("buttonGravar").style.backgroundColor="grey";
-                    document.user.button.disabled=true
-                } else {
-                    document.getElementById("buttonGravar").style.backgroundColor="#008CBA";
-                    document.user.button.disabled=false
-                }
-            }
-        </script>
     <input type="submit" value="Gravar" id="buttonGravar" name="button" class="button" style="float: right">
         <a href="login.php">
             <button type="button" class="button" style="float: right">Página Inicial</button>

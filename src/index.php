@@ -1,6 +1,9 @@
 <?php require('verification.php');?>
 
 <html>
+<head>
+    <title>Página Inicial</title>
+</head>
 <link rel="stylesheet" href="../css/index_style.css">
     <body>
     <ul>

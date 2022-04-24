@@ -42,8 +42,8 @@ if (@$_REQUEST['button']=="Login")
     <div class="container">
         <h1>Seja <span>bem vindo</span></h1>
         <form class="user" action=# method=post>
-            <input type="text" aria-describedby="emailHelp" placeholder="Enter username" name="login"><br><br>
-            <input type="password" id="password" placeholder="Password" name="password"> <br><br>
+            <input type="text" aria-describedby="emailHelp" placeholder="Enter username" name="login" required><br><br>
+            <input type="password" id="password" placeholder="Password" name="password" required> <br><br>
             <a href="register_user.php"><button type="button" class="button" style="float: left">Crie sua conta</button></a>
             <input type="submit" name="button" value="Login" class="button" style="float: right"><br>
         </form>

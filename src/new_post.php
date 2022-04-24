@@ -27,7 +27,7 @@ if(@$_REQUEST['botao'] == "Add") {
         @$categoryId = @$resultCategory['id'];
     }
 
-    $sql = "INSERT INTO anuncios (isActive, titulo, descricao, categoria, usuario, preco) VALUES (1, '$tituloAnuncio', '$descricaoAnuncio', $categoryId, $userId, $precoAnuncio)";
+    $sql = "INSERT INTO anuncios (isActive, titulo, descricao, categoria, usuario, preco) VALUES (0, '$tituloAnuncio', '$descricaoAnuncio', $categoryId, $userId, $precoAnuncio)";
 
 
     if (mysqli_query($con, $sql)) {

@@ -10,7 +10,7 @@ include 'verification.php';
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../css/posts_page_style.css">
-    <title>Anúncios</title>
+    <title>Meus anúncios</title>
 </head>
 <body>
 <ul>
@@ -68,7 +68,6 @@ $result = mysqli_query($con, $sql);
 if($result != null){
     echo "<div class=\"row\" id=\"myProducts\">";
     while($row = mysqli_fetch_array($result)){
-        if ($row['isActive'] == 1){
             echo "<form action=\"\" method=\"POST\">";
             echo "<div class=\"column\">";
             $postId = $row['id'];
@@ -88,15 +87,19 @@ if($result != null){
 
             echo "<p class=\"cardCategory\"> <span>Categoria do serviço:</span> ".$categoryTitle."</p>";
             echo "<p class=\"cardPrice\"> <span>Preço por hora: R$</span> ".$row['preco']."</p>";
+        if($row['isActive'] == 1){
+            echo "<p class=\"cardPrice\"> <span>Anúncio ativo: </span>sim</p>";
+        } else {
+            echo "<p class=\"cardPrice\"> <span>Anúncio ativo: </span>não</p>";
+        }
 
-            // BOTÕES DEVEM ESTAR DISPONÍVEIS APENAS PARA ADMINS
+            // BOTÃO APENAS PARA ADMIN
             @$getUserAdmin = mysqli_query($con, "SELECT * FROM user WHERE id = $userId");
             while(@$resultUserAdmin = mysqli_fetch_array($getUserAdmin)){
                 @$userIsAdmin = @$resultUserAdmin['isAdm'];
             }
             if($userIsAdmin == 1){
                 echo "<button type=\"submit\" name=\"botao\" value=\"deletar anúncio\" class=\"button\">deletar anúncio</button>";
-                echo "<button type=\"submit\" name=\"botao\" value=\"inativar anúncio\" class=\"button\">inativar anúncio</button>";
             }
 
             // BOTÃO DISPONÍVEL APENAS PARA O USUÁRIO QUE CRIOU O ANÚNCIO
@@ -108,7 +111,6 @@ if($result != null){
             echo "</div>";
             echo "</div>";
             echo "</form>";
-        }
     }
     echo "</div>";
 } else {
@@ -129,18 +131,6 @@ if(@$_REQUEST['botao'] == "deletar anúncio"){
     }
 }
 
-if(@$_REQUEST['botao'] == "inativar anúncio"){
-    @$postToInactive = $_POST["postId"];
-    $inactivePost = "UPDATE anuncios SET isActive = 0 WHERE id = $postToInactive";
-
-    if(mysqli_query($con, $inactivePost)){
-        echo "Anúncio inativado com sucesso.";
-        header("Refresh: 3");
-    } else {
-        echo "Erro ao inativar anúncio.";
-        header("Refresh: 3");
-    }
-}
 if(@$_REQUEST['botao'] == "gerenciar anúncio"){
     @$postToUpdate = $_POST["postId"];
     echo "<script>top.location.href=\"update_post.php?id=$postToUpdate\"</script>";

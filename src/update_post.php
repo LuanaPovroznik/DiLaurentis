@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../css/posts_page_style.css">
+        <title>Gerenciar anúncio</title>
     </head>
 <?php
     include 'config.php';

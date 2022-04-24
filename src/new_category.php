@@ -1,7 +1,7 @@
-<!doctype html>
-<?php 
+<?php
     include "verification.php";
 ?>
+<!doctype html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">

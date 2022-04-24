@@ -51,11 +51,11 @@ if(@$_REQUEST['botao'] == "Add") {
         <form action="" method="POST">
             <h3> Cadastrar <span>novo anúncio</span> </h3>
             <label for="tituloAnuncio"><span>Título:</span></label><br>
-            <input type="text" name="tituloAnuncio" id="inputTitulo" maxlength="60"><br><br>
+            <input type="text" name="tituloAnuncio" id="inputTitulo" maxlength="60" required><br><br>
             <label for="descricaoAnuncio"><span>Descrição:</span></label><br>
-            <textarea name="descricaoAnuncio" id="inputDescricao"></textarea><br><br>
+            <textarea name="descricaoAnuncio" id="inputDescricao" required></textarea><br><br>
             <label for="precoAnuncio"><span>Preço por hora:</span></label><br>
-            <input type="number" name="precoAnuncio" id="precoAnuncio"><br><br>
+            <input type="number" name="precoAnuncio" id="precoAnuncio" required><br><br>
             <label for="categoriaAnuncio"><span>Categoria:</span></label><br><br>
             <?php
             $sqlGet = "SELECT titulo FROM categoria ORDER BY titulo ASC";

@@ -41,7 +41,7 @@
     <form action="" method="POST">
         <h3> Cadastrar <span>nova categoria</span> </h3>
         <label for="tituloCategoria">Título:</label><br>
-        <input type="text" name="tituloCategoria" id="inputTituloCategoria" maxlength="60"><br>
+        <input type="text" name="tituloCategoria" id="inputTituloCategoria" maxlength="60" required><br>
         <label for="descricaoCategoria">Descrição:</label><br>
         <textarea name="descricaoAnuncio" id="inputDescricao"></textarea><br><br>
         <input type="submit" name="botao" value="Add" class="button" style="float: right"><br>

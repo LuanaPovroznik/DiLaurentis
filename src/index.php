@@ -24,6 +24,7 @@
             if(@$userIsAdm == 1){
                 echo "<a href=\"inactive_posts.php\"><button type=\"button\" class=\"button\">Visualizar anúncios inativos</button></a>";
                 echo "<a href=\"new_category.php\"><button type=\"button\" class=\"button\">Cadastrar nova categoria</button></a>";
+                echo "<a href=\"register.php\"><button type=\"button\" class=\"button\">Cadastrar novo usuario</button></a>";
             }
             ?>
             <br><br>

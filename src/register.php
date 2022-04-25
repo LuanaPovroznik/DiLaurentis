@@ -103,7 +103,7 @@
             </div>
         </div><br>
     <input type="submit" value="Gravar" id="buttonGravar" name="button" class="button" style="float: right">
-        <a href="login.php">
+        <a href="index.php">
             <button type="button" class="button" style="float: right">Página Inicial</button>
         </a>
     <input type="submit" value="Excluir" name="botao">

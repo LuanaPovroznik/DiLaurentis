@@ -5,31 +5,38 @@
     <link href="../css/register_style.css" rel="stylesheet">
 </head>
     <body>
-    <?php $id = @$_REQUEST['id'];
+    <?php
+    $id = @$_REQUEST['id'];
 
-        if (@$_REQUEST['id'] and !$_REQUEST['button']){
-            $query = "SELECT * FROM user WHERE id='{$_REQUEST['id']}'";
-            $result = mysqli_query($con, $query);
-            $row = mysqli_fetch_assoc($result);	
-            foreach( $row as $key => $value ){
+    if (@$_REQUEST['button'] == "Excluir") {
+        $query_excluir = "DELETE FROM user WHERE id='$id'";
+        $result_excluir = mysqli_query($con, $query_excluir);
+        if ($result_excluir) echo "<h2> Registro excluido com sucesso!!!</h2>";
+        else echo "<h2> Nao consegui excluir!!!</h2>";
+    }
+
+    if (@$_REQUEST['id'] and !$_REQUEST['button']){
+        $query = "SELECT * FROM user WHERE id='{$_REQUEST['id']}'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        foreach( $row as $key => $value ){
             $_POST[$key] = $value;
-            }
         }
+    }
 
-        if (@$_REQUEST['button'] == "Gravar"){
+    if (@$_REQUEST['button'] == "Gravar"){
         $password = md5($_POST['password']);
-    
-            if (!$_REQUEST['id']){
-                @$userIsAdmin = 0;                
-                $insere = "INSERT into user (isAdm, login, first_name, last_name, password) VALUES ('{$userIsAdmin}', '{$_POST['login']}', '{$_POST['first_name']}', '{$_POST['last_name']}', '$password')";
-                $result_insere = mysqli_query($con, $insere);        
-                if ($result_insere){
-                    echo "<script>alert('Cadastrado com sucesso!'); top.location.href='login.php';</script>";
-                } else {
-                    echo "<h2> Nao consegui inserir!!!</h2>";
-                }
+
+        if (!$_REQUEST['id']){
+            $insere = "INSERT into user (isAdm, login, first_name, last_name, password) VALUES (0, '{$_POST['login']}', '{$_POST['first_name']}', '{$_POST['last_name']}', '$password')";
+            $result_insere = mysqli_query($con, $insere);
+            if ($result_insere){
+                echo "<script>alert('Cadastrado com sucesso!'); top.location.href='index.php';</script>";
             } else {
-                $insere = "UPDATE user SET 
+                echo "<h2> Nao consegui inserir!!!</h2>";
+            }
+        } else {
+            $insere = "UPDATE user SET 
                     isAdm = '{$_POST['isAdm']}'
                     , login = '{$_POST['login']}'
                     , first_name = '{$_POST['first_name']}'
@@ -37,16 +44,16 @@
                     , password = '{$_POST['password']}'
                     WHERE id = '{$_REQUEST['id']}'
                 ";
-                $result_update = mysqli_query($con, $insere);
-                if ($result_update) echo "<h2> Registro atualizado com sucesso!!!</h2>";
-                else echo "<h2> Nao consegui atualizar!!!</h2>";        
-            }
+            $result_update = mysqli_query($con, $insere);
+            if ($result_update) echo "<h2> Registro atualizado com sucesso!!!</h2>";
+            else echo "<h2> Nao consegui atualizar!!!</h2>";
         }
+    }
     ?>
     <h2 style="text-align: center">di<span>laurentis</span></h2>
 <div class="container">
     <h2>Cadastro <span>de Usuarios</span></h2>
-    <form action="register.php" method="post" name="user">
+    <form action="register_user.php" method="post" name="user">
         <input type="text" placeholder="Username" onkeyup="checkUser()" name="login" id= "login" value="<?php echo @$_POST['login']; ?>" required>
         <script>
             function checkUser() {

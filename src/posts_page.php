@@ -95,8 +95,11 @@
                         @$userIsAdmin = @$resultUserAdmin['isAdm'];
                     }
                     if($userIsAdmin == 1){
-                        echo "<button type=\"submit\" name=\"botao\" value=\"deletar anúncio\" class=\"button\">deletar anúncio</button>";
                         echo "<button type=\"submit\" name=\"botao\" value=\"inativar anúncio\" class=\"button\">inativar anúncio</button>";
+                    }
+
+                    if($userIsAdmin == 1 || $userId == $row['usuario']){
+                        echo "<button type=\"submit\" name=\"botao\" value=\"deletar anúncio\" class=\"button\">deletar anúncio</button>";
                     }
 
                     // BOTÃO DISPONÍVEL APENAS PARA O USUÁRIO QUE CRIOU O ANÚNCIO

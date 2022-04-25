@@ -98,7 +98,7 @@ if($result != null){
             while(@$resultUserAdmin = mysqli_fetch_array($getUserAdmin)){
                 @$userIsAdmin = @$resultUserAdmin['isAdm'];
             }
-            if($userIsAdmin == 1){
+            if($userIsAdmin == 1 || $userId == $row['usuario']){
                 echo "<button type=\"submit\" name=\"botao\" value=\"deletar anúncio\" class=\"button\">deletar anúncio</button>";
             }
 

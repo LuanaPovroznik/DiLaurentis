@@ -47,7 +47,7 @@
 <div class="container">
     <h2>Cadastro <span>de Usuarios</span></h2>
     <form action="register.php" method="post" name="user">
-        <input type="text" placeholder="Username" onfocusout="checkUser()" name="login" id= "login" value="<?php echo @$_POST['login']; ?>" required>
+        <input type="text" placeholder="Username" onkeyup="checkUser()" name="login" id= "login" value="<?php echo @$_POST['login']; ?>" required>
         <script>
             function checkUser() {
                 fetch("http://localhost/dilaurentis/src/check_user.php", {
